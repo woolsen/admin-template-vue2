@@ -86,7 +86,9 @@ export const setUserInfo = (res, commit) => {
   if (res.roles.length === 0) {
     commit('SET_ROLES', ['ROLE_SYSTEM_DEFAULT'])
   } else {
-    commit('SET_ROLES', res.roles)
+    commit('SET_ROLES', res.authorities.map((authority) => {
+      return authority.authority
+    }))
   }
   commit('SET_USER', res)
 }

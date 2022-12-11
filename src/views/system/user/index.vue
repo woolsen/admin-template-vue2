@@ -144,9 +144,9 @@
           <el-table-column :selectable="checkboxT" type="selection" width="55" />
           <el-table-column :show-overflow-tooltip="true" prop="username" label="用户名" />
           <el-table-column :show-overflow-tooltip="true" prop="nickname" label="昵称" />
-          <el-table-column prop="gender" label="性别" />
+          <el-table-column prop="gender" label="性别" width="55" />
           <el-table-column :show-overflow-tooltip="true" prop="phone" width="100" label="电话" />
-          <el-table-column :show-overflow-tooltip="true" width="135" prop="email" label="邮箱" />
+          <el-table-column :show-overflow-tooltip="true" prop="email" label="邮箱" />
           <el-table-column :show-overflow-tooltip="true" prop="dept" label="部门">
             <template slot-scope="scope">
               <div>{{ scope.row.dept.name }}</div>
@@ -156,7 +156,7 @@
             <template slot-scope="scope">
               <el-switch
                 v-model="scope.row.enabled"
-                :disabled="user.id === scope.row.id"
+                :disabled="user.id === scope.row.id || scope.row.id === 1"
                 active-color="#409EFF"
                 inactive-color="#F56C6C"
                 @change="changeEnabled(scope.row, scope.row.enabled)"
@@ -175,7 +175,8 @@
               <udOperation
                 :data="scope.row"
                 :permission="permission"
-                :disabled-dle="scope.row.id === user.id"
+                :disabled-edit="scope.row.id === 1"
+                :disabled-dle="scope.row.id === user.id || scope.row.id === 1"
               />
             </template>
           </el-table-column>
@@ -470,7 +471,7 @@ export default {
       }).catch(() => { })
     },
     checkboxT(row, rowIndex) {
-      return row.id !== this.user.id
+      return row.id !== this.user.id && row.id !== 1
     }
   }
 }
