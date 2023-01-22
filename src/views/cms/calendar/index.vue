@@ -99,7 +99,7 @@ import udOperation from '@crud/UD.operation'
 import pagination from '@crud/Pagination'
 import { Notification } from 'element-ui'
 
-const defaultForm = { id: null, description: null, name: null, items: [{ day: '', type: 0 }] }
+const defaultForm = { id: null, description: null, name: null, items: [] }
 export default {
   name: 'Calendar',
   components: { pagination, crudOperation, rrOperation, udOperation },
@@ -110,6 +110,9 @@ export default {
   data() {
     return {
       options: [{
+        value: -1,
+        label: '不显示'
+      }, {
         value: 0,
         label: '无'
       }, {
@@ -155,7 +158,7 @@ export default {
       return true
     },
     addItem() {
-      this.form.items.push({ day: '', type: 1 })
+      this.form.items.push({ day: '', type: 0 })
     },
     delItem(index) {
       this.form.items.splice(index, 1)
